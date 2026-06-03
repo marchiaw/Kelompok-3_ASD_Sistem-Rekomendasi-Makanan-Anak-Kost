@@ -82,3 +82,19 @@ class InterfaceAnakKost:
 
         self.lbl_menu_terbaik = tk.Label(frame_stats, text="Menu Terbaik : Calculating...", font=("Arial", 10, "bold"), fg="darkgreen")
         self.lbl_menu_terbaik.grid(row=1, column=1, padx=20, pady=5, sticky="w")
+           def bangun_layout_user(self):
+        frame_fitur = tk.LabelFrame(self.tab_user, text=" Fitur Pencarian & Filter ")
+        frame_fitur.pack(fill="x", padx=10, pady=10)
+
+        tk.Label(frame_fitur, text="Budget Maks (Rp):").pack(side="left", padx=2)
+        self.ent_budget = tk.Entry(frame_fitur, width=12); self.ent_budget.pack(side="left", padx=2)
+        
+        tk.Label(frame_fitur, text="Kategori:").pack(side="left", padx=5)
+        self.cmb_kategori_user = ttk.Combobox(frame_fitur, values=["Makanan", "Minuman", "Jajanan"], width=12, state="readonly")
+        self.cmb_kategori_user.pack(side="left", padx=2)
+        self.cmb_kategori_user.set("Makanan")
+
+        tk.Button(frame_fitur, text="Filter Budget", command=self.app.fitur_bst_filter, bg="#b3e6ff").pack(side="left", padx=5)
+        tk.Button(frame_fitur, text="Rekomendasi Terbaik", command=self.app.fitur_rekomendasi_terbaik, bg="#ff9999", font=("Arial", 9, "bold")).pack(side="left", padx=5)
+        tk.Button(frame_fitur, text="Urut Rating", command=self.app.fitur_sort_rating, bg="#ffcc99").pack(side="right", padx=5)
+
