@@ -44,3 +44,20 @@ class InterfaceAnakKost:
         self.ent_kategori.grid(row=2, column=3, padx=5, pady=5)
         self.ent_kategori.set("Makanan")
  
+        frame_aksi = tk.Frame(self.tab_admin)
+        frame_aksi.pack(pady=5)
+
+        tk.Button(frame_aksi, text="Tambah", command=self.app.crud_create, bg="green", fg="white", width=12).pack(side="left", padx=5)
+        tk.Button(frame_aksi, text="Perbarui", command=self.app.crud_update, bg="orange", width=12).pack(side="left", padx=5)
+        tk.Button(frame_aksi, text="Hapus", command=self.app.crud_delete, bg="red", fg="white", width=12).pack(side="left", padx=5)
+
+        frame_tabel = tk.Frame(self.tab_admin)
+        frame_tabel.pack(fill="both", expand=True, padx=10, pady=5)
+
+        self.tabel_admin = ttk.Treeview(frame_tabel, columns=("Nama", "Warung", "Harga", "Rating", "Kategori", "Lokasi"), show="headings")
+        self.tabel_admin.heading("Nama", text="Nama Makanan")
+        self.tabel_admin.heading("Warung", text="Nama Warung")
+        self.tabel_admin.heading("Harga", text="Harga")
+        self.tabel_admin.heading("Rating", text="Rating")
+        self.tabel_admin.heading("Kategori", text="Kategori")
+        self.tabel_admin.heading("Lokasi", text="Lokasi")
