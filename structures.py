@@ -78,3 +78,11 @@ class StackFavoriteLinkedList:
                 return True
             current = current.next
         return False
+
+    def get_all(self):
+        result = []
+        current = self.top
+        while current:
+            result.append(current.data)
+            current = current.next
+        return result
