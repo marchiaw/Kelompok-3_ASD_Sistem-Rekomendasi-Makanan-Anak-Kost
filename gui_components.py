@@ -74,3 +74,11 @@ class InterfaceAnakKost:
 
         self.lbl_total_menu = tk.Label(frame_stats, text="Total Menu : Calculating...", font=("Arial", 10, "bold"))
         self.lbl_total_menu.grid(row=0, column=0, padx=20, pady=5, sticky="w")
+        self.lbl_rata_harga = tk.Label(frame_stats, text="Harga Rata-rata : Calculating...", font=("Arial", 10, "bold"))
+        self.lbl_rata_harga.grid(row=0, column=1, padx=20, pady=5, sticky="w")
+
+        self.lbl_rata_rating = tk.Label(frame_stats, text="Rating Rata-rata : Calculating...", font=("Arial", 10, "bold"))
+        self.lbl_rata_rating.grid(row=1, column=0, padx=20, pady=5, sticky="w")
+
+        self.lbl_menu_terbaik = tk.Label(frame_stats, text="Menu Terbaik : Calculating...", font=("Arial", 10, "bold"), fg="darkgreen")
+        self.lbl_menu_terbaik.grid(row=1, column=1, padx=20, pady=5, sticky="w")
