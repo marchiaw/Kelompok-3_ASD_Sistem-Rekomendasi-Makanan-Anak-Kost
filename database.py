@@ -62,3 +62,19 @@ def load_semua_state(riwayat_cari, daftar_favorit):
             pass
             
     return database_warung
+    
+def suntik_data_default():
+    dummy = [
+        WarungMakan("Batagor Kering", 13000, "Jajanan", "Batagor Abah Unila", "Kampung Baru", 4.5),
+        WarungMakan("Batagor Kuah", 15000, "Jajanan", "Batagor Abah Unila", "Kampung Baru", 4.5),
+        WarungMakan("Ayam Geprek Original + Nasi", 24000, "Makanan", "Geprek Mas Boy", "Gedong Meneng", 4.7),
+        WarungMakan("Ayam Geprek Pedas + Nasi", 24000, "Makanan", "Geprek Mas Boy", "Gedong Meneng", 4.7),
+        WarungMakan("Nasi Uduk Komplit Telur", 10000, "Makanan", "Nasi Uduk Kampung Baru", "Kampung Baru", 4.4),
+        WarungMakan("Paket Pecel Lele Maknyus", 15000, "Makanan", "Pecel Lele Unila", "Gedong Meneng", 4.6),
+        WarungMakan("Promo Mie Instan Warmindo", 7000, "Makanan", "Warmindo Unila", "Kampung Baru", 4.3),
+        WarungMakan("Nasi Sayur + Tahu Tempe", 8000, "Makanan", "Warung Makan Barokah", "Gedong Meneng", 4.4),
+        WarungMakan("Dimsum Ayam Istimewa", 9000, "Jajanan", "Dimsum Unila", "Kampung Baru", 4.6),
+        WarungMakan("Nasi Goreng Kambing", 25000, "Makanan", "Nasgor Kedaton", "Kedaton", 4.2),
+        WarungMakan("Mie Ayam Karet", 12000, "Makanan", "Mie Ayam Labuhan", "Labuhan Ratu", 2.1),
+        WarungMakan("Sate Taichan Goreng", 20000, "Makanan", "Taichan Rajabasa", "Rajabasa", 4.8),
+        WarungMakan("Ayam Bakar Taliwang", 27000, "Makanan", "Ayam Bakar Unila", "Kampung Baru", 4.6),
