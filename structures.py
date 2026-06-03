@@ -86,3 +86,9 @@ class StackFavoriteLinkedList:
             result.append(current.data)
             current = current.next
         return result
+
+class NodeBST:
+    def __init__(self, warung_obj):
+        self.warung = warung_obj
+        self.left = None
+        self.right = None
