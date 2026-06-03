@@ -72,5 +72,5 @@ class InterfaceAnakKost:
         frame_stats = tk.LabelFrame(self.tab_admin, text=" Ringkasan Dashboard Data Kuliner ")
         frame_stats.pack(fill="x", padx=10, pady=5)
 
-        self.lbl_total_menu = tk.Label(frame_stats, text="Total Menu : Calculating...", font=("Times New Roman", 10, "bold"))
+        self.lbl_total_menu = tk.Label(frame_stats, text="Total Menu : Calculating...", font=("Comic Sans", 10, "bold"))
         self.lbl_total_menu.grid(row=0, column=0, padx=20, pady=5, sticky="w")
