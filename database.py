@@ -28,3 +28,19 @@ def simpan_semua_data(database_warung, daftar_favorit, riwayat_cari):
 
 def load_semua_data(riwayat_cari, daftar_favorit):
     database_warung = []
+
+  
+    # Load Main DB
+    if os.path.exists(FILE_DB):
+        try:
+            with open(FILE_DB, "r", encoding="utf-8") as f:
+                data_mentah = json.load(f)
+                for item in data_mentah:
+                    database_warung.append(
+                        WarungMakan(item["nama"], item["harga"], item["kategori"], 
+                                    item["nama_warung"], item["lokasi"], item["rating"])
+                    )
+        except json.JSONDecodeError:
+            database_warung = muat_data_default()
+    else:
+        database_warung = muat_data_default()
