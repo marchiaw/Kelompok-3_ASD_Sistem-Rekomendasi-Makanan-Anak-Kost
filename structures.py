@@ -126,3 +126,14 @@ class BSTHarga:
             else:
                 self._insert_recursive(current.right, warung_obj)
 
+     def cari_di_bawah_harga(self, harga_maks):
+        hasil = []
+        self._inorder_filter(self.root, harga_maks, hasil)
+        return hasil
+
+    def _inorder_filter(self, current, harga_maks, hasil):
+        if current:
+            self._inorder_filter(current.left, harga_maks, hasil)
+            if current.warung.harga <= harga_maks:
+                hasil.append(current.warung)
+                self._inorder_filter(current.right, harga_maks, hasil)
