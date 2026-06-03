@@ -41,3 +41,24 @@ def load_semua_state(riwayat_cari, daftar_favorit):
             database_warung = suntik_data_default()
     else:
         database_warung = suntik_data_default()
+
+
+    if os.path.exists(FILE_FAV):
+        try:
+            with open(FILE_FAV, "r", encoding="utf-8") as f:
+                fav_mentah = json.load(f)
+                for item in fav_mentah[::-1]:
+                    daftar_favorit.push(item)
+        except json.JSONDecodeError:
+            pass
+
+    if os.path.exists(FILE_HIST):
+        try:
+            with open(FILE_HIST, "r", encoding="utf-8") as f:
+                hist_mentah = json.load(f)
+                for item in hist_mentah:
+                    riwayat_cari.add_history_queue(item)
+        except json.JSONDecodeError:
+            pass
+            
+    return database_warung
