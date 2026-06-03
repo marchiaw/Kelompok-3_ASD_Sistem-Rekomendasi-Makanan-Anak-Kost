@@ -21,7 +21,6 @@ class QueueHistoryLinkedList:
         if self.size > 5:
             self.dequeue_oldest()
 
-    
     def dequeue_oldest(self):
         if self.front is None:
             return
