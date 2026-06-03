@@ -81,3 +81,19 @@ class StackFavoriteLinkedList:
             prev = current
             current = current.next
         return False
+
+    def is_exist(self, item_text):
+        current = self.top
+        while current:
+            if current.data == item_text:
+                return True
+            current = current.next
+        return False
+
+    def get_all(self):
+        result = []
+        current = self.top
+        while current:
+            result.append(current.data)
+            current = current.next
+        return result
