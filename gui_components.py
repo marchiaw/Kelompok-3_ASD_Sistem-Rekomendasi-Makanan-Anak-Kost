@@ -98,3 +98,31 @@ class InterfaceAnakKost:
         tk.Button(frame_fitur, text="Rekomendasi Terbaik", command=self.app.fitur_rekomendasi_terbaik, bg="#ff9999", font=("Arial", 9, "bold")).pack(side="left", padx=5)
         tk.Button(frame_fitur, text="Urut Rating", command=self.app.fitur_sort_rating, bg="#ffcc99").pack(side="right", padx=5)
 
+       frame_baris2 = tk.Frame(self.tab_user); frame_baris2.pack(fill="x", padx=10)
+        tk.Label(frame_baris2, text="Cari Nama Warung:").pack(side="left", padx=2)
+        self.ent_cari_warung = tk.Entry(frame_baris2, width=20); self.ent_cari_warung.pack(side="left", padx=2)
+        tk.Button(frame_baris2, text="Cari", command=self.app.fitur_binary_search, bg="#b3ffb3").pack(side="left", padx=5)
+        tk.Button(frame_baris2, text="Reset Tampilan", command=self.app.reset_tampilan_user).pack(side="left", padx=5)
+        tk.Button(frame_baris2, text="❤️ Tambah Favorit", command=self.app.tambah_ke_favorit, bg="#ffb3d9").pack(side="right", padx=5)
+
+        frame_tabel_user = tk.Frame(self.tab_user)
+        frame_tabel_user.pack(padx=10, pady=10, fill="both", expand=True)
+
+       self.list_user = ttk.Treeview(frame_tabel_user, columns=("Nama", "Warung", "Harga", "Rating", "Kategori", "Lokasi"), show="headings")
+        self.list_user.heading("Nama", text="Nama Makanan")
+        self.list_user.heading("Warung", text="Nama Warung")
+        self.list_user.heading("Harga", text="Harga")
+        self.list_user.heading("Rating", text="Rating")
+        self.list_user.heading("Kategori", text="Kategori")
+        self.list_user.heading("Lokasi", text="Lokasi")
+        
+        scroll_user = ttk.Scrollbar(frame_tabel_user, orient="vertical", command=self.list_user.yview)
+        self.list_user.configure(yscrollcommand=scroll_user.set)
+        self.list_user.pack(side="left", fill="both", expand=True)
+        scroll_user.pack(side="right", fill="y")
+
+        frame_bawah = tk.Frame(self.tab_user); frame_bawah.pack(fill="x", padx=10, pady=5)
+        tk.Button(frame_bawah, text="Lihat Riwayat Klik", command=self.app.lihat_riwayat, bg="lightblue").pack(side="right", padx=5)
+        tk.Button(frame_bawah, text="⭐ Buka Daftar Favorit", command=self.app.lihat_favorit, bg="#ffe680").pack(side="right", padx=5)
+        
+        self.list_user.bind("<<TreeviewSelect>>", self.app.catat_riwayat_klik)
