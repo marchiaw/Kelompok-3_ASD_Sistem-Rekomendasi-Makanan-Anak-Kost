@@ -20,3 +20,20 @@ class QueueHistoryLinkedList:
         self.size += 1
         if self.size > 5:
             self.dequeue_oldest()
+
+    
+    def dequeue_oldest(self):
+        if self.front is None:
+            return
+        self.front = self.front.next
+        if self.front is None:
+            self.rear = None
+        self.size -= 1
+
+    def get_all(self):
+        result = []
+        current = self.front
+        while current:
+            result.append(current.data)
+            current = current.next
+        return result[::-1]
