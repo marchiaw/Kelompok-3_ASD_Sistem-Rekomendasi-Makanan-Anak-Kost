@@ -56,3 +56,25 @@ class StackFavoriteLinkedList:
         popped_node = self.top
         self.top = self.top.next
         return popped_node.data
+
+    def remove_item(self, item_text):
+        current = self.top
+        prev = None
+        while current:
+            if current.data == item_text:
+                if prev is None:
+                    self.top = current.next
+                else:
+                    prev.next = current.next
+                return True
+            prev = current
+            current = current.next
+        return False
+
+    def is_exist(self, item_text):
+        current = self.top
+        while current:
+            if current.data == item_text:
+                return True
+            current = current.next
+        return False
