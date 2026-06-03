@@ -49,3 +49,10 @@ class StackFavoriteLinkedList:
         else:
             new_node.next = self.top
             self.top = new_node
+
+    def pop(self):
+        if self.top is None:
+            return None
+        popped_node = self.top
+        self.top = self.top.next
+        return popped_node.data
