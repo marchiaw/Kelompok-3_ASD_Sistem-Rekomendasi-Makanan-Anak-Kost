@@ -375,3 +375,88 @@ class AplikasiRekomendasiAnakKost:
 
         except ValueError:
             messagebox.showerror("Error", "Input parameter budget anak kost wajib diisi angka murni!")
+
+    def fitur_sort_rating(self):
+        data_copy = list(self.database_warung)
+        merge_sort_rating(data_copy)
+        self.tampilkan_di_list_user(data_copy)
+
+    def fitur_binary_search(self):
+        target = self.ent_cari_warung.get().strip()
+        if not target: return messagebox.showwarning("Peringatan", "Masukkan nama warung!")
+        
+        data_diurutkan = sorted(self.database_warung, key=lambda x: x.nama_warung.lower())
+        indeks = binary_search_warung(data_diurutkan, target)
+        
+        if indeks != -1:
+            warung_ketemu = data_diurutkan[indeks].nama_warung.lower()
+            self.tampilkan_di_list_user([w for w in self.database_warung if warung_ketemu == w.nama_warung.lower()])
+        else: 
+            messagebox.showwarning("Tidak Ditemukan", f"Warung '{target}' tidak terdaftar.")
+
+    def catat_riwayat_klik(self, event):
+        item_terpilih = self.list_user.focus()
+        if item_terpilih: 
+            val = self.list_user.item(item_terpilih, "values")
+            teks_riwayat = f"[{val[1]}] {val[0]} - Rp{val[2]} | Rating: {val[3]} ({val[4]})"
+            riwayat_sekarang = self.riwayat_cari.get_all()
+            if riwayat_sekarang and riwayat_sekarang[0] == teks_riwayat:
+                return
+            self.riwayat_cari.add_history_queue(teks_riwayat)
+            self.simpan_state()
+
+    def lihat_riwayat(self):
+        riwayat = self.riwayat_cari.get_all()
+        teks_box = f"Riwayat Klik Terakhir\n\n"
+        if riwayat:
+            teks_box += "\n".join([f"{i+1}. {item}" for i, item in enumerate(riwayat)])
+        else:
+            teks_box += "Belum ada riwayat klik menu."
+        messagebox.showinfo("Riwayat Anda", teks_box)
+
+    def tambah_ke_favorit(self):
+        item_terpilih = self.list_user.focus()
+        if not item_terpilih:
+            return messagebox.showwarning("Peringatan", "Pilih menu makanan di tabel dulu untuk dijadikan favorit!")
+        
+        val = self.list_user.item(item_terpilih, "values")
+        teks_fav = f"{val[0]} ({val[1]}) - Rp{val[2]}"
+
+        if self.daftar_favorit.is_exist(teks_fav):
+            self.daftar_favorit.remove_item(teks_fav)
+            self.simpan_state()
+            messagebox.showinfo("Favorit Diubah", f"'{val[0]}' dihapus dari daftar favorit.")
+        else:
+            self.daftar_favorit.push(teks_fav)
+            self.simpan_state()
+            messagebox.showinfo("Favorit Ditambahkan", f"'{val[0]}' berhasil masuk daftar favorit!")
+
+    def lihat_favorit(self):
+        fav_list = self.daftar_favorit.get_all()
+        teks_box = "⭐ DAFTAR MAKANAN FAVORIT ANDA:\n\n"
+        if fav_list:
+            teks_box += "\n".join([f"📌 {item}" for item in fav_list])
+            teks_box += "\n\n*Catatan: Makanan yang paling baru ditambah berada di urutan teratas."
+        else:
+            teks_box += "Belum ada makanan favorit yang disimpan."
+        
+        if fav_list:
+            opsi_pop = messagebox.askyesno("Daftar Favorit", teks_box + "\n\nApakah Anda ingin menghapus item teratas?")
+            if opsi_pop:
+                item_terhapus = self.daftar_favorit.pop()
+                if item_terhapus:
+                    self.simpan_state() 
+                    messagebox.showinfo("Stack", f"Berhasil menghapus item teratas: '{item_terhapus}' telah dihapus.")
+        else:
+            messagebox.showinfo("Daftar Favorit", teks_box)
+
+    def tampilkan_di_list_user(self, daftar):
+        for i in self.list_user.get_children():
+            self.list_user.delete(i)
+        for w in daftar: 
+            self.list_user.insert("", "end", values=(w.nama, w.nama_warung, w.harga, w.rating, w.kategori, w.lokasi))
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = AplikasiRekomendasiAnakKost(root)
+    root.mainloop()
