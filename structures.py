@@ -103,3 +103,26 @@ class NodeBST:
         self.warung = warung_obj
         self.left = None
         self.right = None
+        
+class BSTHarga:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, warung_obj):
+        if not self.root:
+            self.root = NodeBST(warung_obj)
+        else:
+            self._insert_recursive(self.root, warung_obj)
+
+    def _insert_recursive(self, current, warung_obj):
+        if warung_obj.harga < current.warung.harga:
+            if current.left is None:
+                current.left = NodeBST(warung_obj)
+            else:
+                self._insert_recursive(current.left, warung_obj)
+        else:
+            if current.right is None:
+                current.right = NodeBST(warung_obj)
+            else:
+                self._insert_recursive(current.right, warung_obj)
+
