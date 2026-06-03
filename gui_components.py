@@ -61,3 +61,10 @@ class InterfaceAnakKost:
         self.tabel_admin.heading("Rating", text="Rating")
         self.tabel_admin.heading("Kategori", text="Kategori")
         self.tabel_admin.heading("Lokasi", text="Lokasi")
+
+        scroll_admin = ttk.Scrollbar(frame_tabel, orient="vertical", command=self.tabel_admin.yview)
+        self.tabel_admin.configure(yscrollcommand=scroll_admin.set)
+        self.tabel_admin.pack(side="left", fill="both", expand=True)
+        scroll_admin.pack(side="right", fill="y")
+        
+        self.tabel_admin.bind("<<TreeviewSelect>>", self.app.ambil_data_klik)
