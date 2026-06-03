@@ -19,6 +19,7 @@ class InterfaceAnakKost:
 
         self.bangun_layout_admin()
         self.bangun_layout_user()
+        
    def bangun_layout_admin(self):
         frame_input = tk.LabelFrame(self.tab_admin, text=" Kelola Data Makanan ")
         frame_input.pack(fill="x", padx=10, pady=5)
