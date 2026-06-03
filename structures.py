@@ -49,3 +49,35 @@ class QueueHistoryLinkedList:
             result.append(current.data)
             current = current.next
         return result[::-1]
+class StackFavoriteLinkedList:
+    def __init__(self):
+        self.top = None
+
+    def push(self, item_text):
+        new_node = NodeLL(item_text)
+        if self.top is None:
+            self.top = new_node
+        else:
+            new_node.next = self.top
+            self.top = new_node
+
+    def pop(self):
+        if self.top is None:
+            return None
+        popped_node = self.top
+        self.top = self.top.next
+        return popped_node.data
+
+    def remove_item(self, item_text):
+        current = self.top
+        prev = None
+        while current:
+            if current.data == item_text:
+                if prev is None:
+                    self.top = current.next
+                else:
+                    prev.next = current.next
+                return True
+            prev = current
+            current = current.next
+        return False
