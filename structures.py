@@ -37,3 +37,15 @@ class QueueHistoryLinkedList:
             result.append(current.data)
             current = current.next
         return result[::-1]
+
+class StackFavoriteLinkedList:
+    def __init__(self):
+        self.top = None
+
+    def push(self, item_text):
+        new_node = NodeLL(item_text)
+        if self.top is None:
+            self.top = new_node
+        else:
+            new_node.next = self.top
+            self.top = new_node
