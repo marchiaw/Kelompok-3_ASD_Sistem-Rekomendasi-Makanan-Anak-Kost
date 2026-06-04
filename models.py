@@ -5,3 +5,4 @@ class Kuliner:
         self.kategori = kategori
 
 class WarungMakan(Kuliner):
+    def __init__(self, nama, harga, kategori, nama_warung, lokasi, rating):
