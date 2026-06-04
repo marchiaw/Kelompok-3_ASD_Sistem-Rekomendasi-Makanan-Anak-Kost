@@ -9,3 +9,4 @@ class WarungMakan(Kuliner):
         super().__init__(nama, harga, kategori)
         self.nama_warung = nama_warung
         self.lokasi = lokasi
+        self.rating = float(rating)
