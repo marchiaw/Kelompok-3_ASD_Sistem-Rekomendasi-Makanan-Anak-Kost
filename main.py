@@ -168,5 +168,40 @@ class AplikasiRekomendasiAnakKost:
             budget = int(budget_str)
             kat_terpilih = self.ui.cmb_kategori_user.get()
 
+            daftar_lolos = pohon_harga.cari_di_bawah_harga(budget)
+            daftar_final = [item for item in daftar_lolos if item.kategori.lower() == kat_terpilih.lower()]
+            self.tampilkan_di_list_user(daftar_final)
+        except ValueError: messagebox.showerror("Error", "Budget harus berupa nominal angka!")
+
+    def fitur_rekomendasi_terbaik(self):
+        try:
+            budget_str = self.ui.ent_budget.get().strip()
+            kat_terpilih = self.ui.cmb_kategori_user.get()
+            if not budget_str: return messagebox.showwarning("Sistem", "Isi kolom budget!")
+            
+            budget = int(budget_str)
+            pohon_harga = BSTHarga()
+            for w in self.database_warung: pohon_harga.insert(w)
+            
+            daftar_lolos = pohon_harga.cari_di_bawah_harga(budget)
+            daftar_final = [item for item in daftar_lolos if item.kategori.lower() == kat_terpilih.lower()]
+
+            if not daftar_final: return messagebox.showinfo("Sistem", f"Kategori {kat_terpilih} Rp {budget:,} kosong.")
+
+            menu_rekomendasi = daftar_final[0]
+            for item in daftar_final:
+                if item.rating > menu_rekomendasi.rating: menu_rekomendasi = item
+                elif item.rating == menu_rekomendasi.rating and item.harga < menu_rekomendasi.harga: menu_rekomendasi = item
+
+            self.tampilkan_di_list_user(daftar_final)
+            pesan = f"REKOMENDASI AUTOMATIC\n\n Menu: {menu_rekomendasi.nama}\nWarung: {menu_rekomendasi.nama_warung}\nHarga: Rp {menu_rekomendasi.harga:,}\nRating: {menu_rekomendasi.rating}"
+            messagebox.showinfo("Sukses", pesan)
+        except ValueError: messagebox.showerror("Error", "Input nominal salah!")
+
+
+
+
+
+
 
 
