@@ -55,3 +55,34 @@ class AplikasiRekomendasiAnakKost:
         self.ui.lbl_rata_harga.config(text=f"Harga Rata-rata : Rp {rata_harga:,.0f}")
         self.ui.lbl_rata_rating.config(text=f"Rating Rata-rata : {rata_rating:.1f}")
         self.ui.lbl_menu_terbaik.config(text=f"Menu Terbaik : {terbaik.nama} ({terbaik.nama_warung})")
+
+    def refresh_tabel_admin(self, data_list):
+        for i in self.ui.tabel_admin.get_children():
+            self.ui.tabel_admin.delete(i)
+        for item in data_list:
+            self.ui.tabel_admin.insert("", "end", values=(item.nama, item.nama_warung, item.harga, item.rating, item.kategori, item.lokasi))
+
+    def tampilkan_di_list_user(self, daftar):
+        for i in self.ui.list_user.get_children():
+            self.ui.list_user.delete(i)
+        for w in daftar: 
+            self.ui.list_user.insert("", "end", values=(w.nama, w.nama_warung, w.harga, w.rating, w.kategori, w.lokasi))
+
+    def reset_tampilan_user(self):
+        self.tampilkan_di_list_user(self.database_warung)
+
+    def ambil_data_klik(self, event):
+        item_terpilih = self.ui.tabel_admin.focus()
+        if item_terpilih:
+            val = self.ui.tabel_admin.item(item_terpilih, "values")
+            self.ui.ent_nama.delete(0, tk.END); self.ui.ent_nama.insert(0, val[0])
+            self.ui.ent_harga.delete(0, tk.END); self.ui.ent_harga.insert(0, val[2])
+            self.ui.ent_warung.delete(0, tk.END); self.ui.ent_warung.insert(0, val[1])
+            self.ui.ent_lokasi.delete(0, tk.END); self.ui.ent_lokasi.insert(0, val[5])
+            self.ui.ent_rating.delete(0, tk.END); self.ui.ent_rating.insert(0, val[3])
+            self.ui.ent_kategori.set(val[4])
+            
+            for warung in self.database_warung:
+                if warung.nama == val[0] and warung.nama_warung == val[1]:
+                    self.objek_terpilih = warung
+                    break
