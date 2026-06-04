@@ -8,3 +8,4 @@ class WarungMakan(Kuliner):
     def __init__(self, nama, harga, kategori, nama_warung, lokasi, rating):
         super().__init__(nama, harga, kategori)
         self.nama_warung = nama_warung
+        self.lokasi = lokasi
