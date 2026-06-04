@@ -24,3 +24,34 @@ class AplikasiRekomendasiAnakKost:
         self.hitung_statistik()
         self.refresh_tabel_admin(self.database_warung)
         self.tampilkan_di_list_user(self.database_warung)
+
+    def trigger_sinkronisasi(self):
+        database.simpan_semua_state(self.database_warung, self.daftar_favorit, self.riwayat_cari)
+
+    def hitung_statistik(self):
+        if not self.database_warung:
+            self.ui.lbl_total_menu.config(text="Total Menu : 0")
+            self.ui.lbl_rata_harga.config(text="Harga Rata-rata : Rp0")
+            self.ui.lbl_rata_rating.config(text="Rating Rata-rata : 0.0")
+            self.ui.lbl_menu_terbaik.config(text="Menu Terbaik : -")
+            return
+
+        total_menu = len(self.database_warung)
+        total_harga = sum(item.harga for item in self.database_warung)
+        total_rating = sum(item.rating for item in self.database_warung)
+
+        rata_harga = total_harga / total_menu
+        rata_rating = total_rating / total_menu
+
+        terbaik = self.database_warung[0]
+        for item in self.database_warung:
+            if item.rating > terbaik.rating:
+                terbaik = item
+            elif item.rating == terbaik.rating:
+                if item.harga < terbaik.harga:
+                    terbaik = item
+
+        self.ui.lbl_total_menu.config(text=f"Total Menu : {total_menu}")
+        self.ui.lbl_rata_harga.config(text=f"Harga Rata-rata : Rp {rata_harga:,.0f}")
+        self.ui.lbl_rata_rating.config(text=f"Rating Rata-rata : {rata_rating:.1f}")
+        self.ui.lbl_menu_terbaik.config(text=f"Menu Terbaik : {terbaik.nama} ({terbaik.nama_warung})")
