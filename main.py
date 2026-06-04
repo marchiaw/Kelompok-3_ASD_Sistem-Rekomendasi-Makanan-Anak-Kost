@@ -146,3 +146,18 @@ class AplikasiRekomendasiAnakKost:
             messagebox.showinfo("Sukses", "Data Berhasil Diperbarui!")
         except ValueError:
             messagebox.showerror("Error", "Gagal konversi angka!")
+
+    def crud_delete(self):
+        if not self.objek_terpilih: return messagebox.showwarning("Peringatan", "Pilih data dulu!")
+        teks_fav_target = f"{self.objek_terpilih.nama} ({self.objek_terpilih.nama_warung}) - Rp{self.objek_terpilih.harga}"
+        self.daftar_favorit.remove_item(teks_fav_target)
+        self.database_warung.remove(self.objek_terpilih)
+        self.trigger_sinkronisasi()  
+        self.refresh_tabel_admin(self.database_warung)
+        self.tampilkan_di_list_user(self.database_warung)
+        self.hitung_statistik() 
+        self.objek_terpilih = None
+        messagebox.showinfo("Sukses", "Data Terhapus!")
+
+
+
