@@ -216,7 +216,7 @@ class AplikasiRekomendasiAnakKost:
             self.tampilkan_di_list_user([w for w in self.database_warung if warung_ketemu == w.nama_warung.lower()])
         else: messagebox.showwarning("Kosong", "Warung tidak terdaftar."
 
-# LOGIC UPDATE: CEK DUPLIKASI RIWAYAT KLIK BERTURUT-TURUT
+#CEK DUPLIKASI RIWAYAT KLIK BERTURUT-TURUT
     def catat_riwayat_klik(self, event):
         item_terpilih = self.ui.list_user.focus()
         if item_terpilih: 
