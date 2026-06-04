@@ -3,3 +3,5 @@ class Kuliner:
         self.nama = nama
         self.harga = int(harga)
         self.kategori = kategori
+
+class WarungMakan(Kuliner):
