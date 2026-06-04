@@ -21,3 +21,11 @@ def merge_sort_rating(arr):
 
         merge_sort_rating(L)
         merge_sort_rating(R)
+
+        i = j = k = 0
+        while i < len(L) and j < len(R):
+            if L[i].rating > R[j].rating:  
+                arr[k] = L[i]; i += 1
+            else:
+                arr[k] = R[j]; j += 1
+            k += 1
