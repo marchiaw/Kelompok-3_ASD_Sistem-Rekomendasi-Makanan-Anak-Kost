@@ -12,3 +12,12 @@ def binary_search_warung(arr, target_nama):
         else:
             high = mid - 1
     return -1
+
+def merge_sort_rating(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        L = arr[:mid]
+        R = arr[mid:]
+
+        merge_sort_rating(L)
+        merge_sort_rating(R)
