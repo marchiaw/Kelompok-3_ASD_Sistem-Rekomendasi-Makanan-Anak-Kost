@@ -159,5 +159,14 @@ class AplikasiRekomendasiAnakKost:
         self.objek_terpilih = None
         messagebox.showinfo("Sukses", "Data Terhapus!")
 
+    def fitur_bst_filter(self):
+        pohon_harga = BSTHarga()
+        for w in self.database_warung: pohon_harga.insert(w)
+        try:
+            budget_str = self.ui.ent_budget.get().strip()
+            if not budget_str: return messagebox.showwarning("Peringatan", "Masukkan nominal budget!")
+            budget = int(budget_str)
+            kat_terpilih = self.ui.cmb_kategori_user.get()
+
 
 
