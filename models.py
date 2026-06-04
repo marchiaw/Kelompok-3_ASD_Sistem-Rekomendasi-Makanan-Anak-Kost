@@ -6,3 +6,4 @@ class Kuliner:
 
 class WarungMakan(Kuliner):
     def __init__(self, nama, harga, kategori, nama_warung, lokasi, rating):
+        super().__init__(nama, harga, kategori)
