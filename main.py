@@ -86,3 +86,63 @@ class AplikasiRekomendasiAnakKost:
                 if warung.nama == val[0] and warung.nama_warung == val[1]:
                     self.objek_terpilih = warung
                     break
+
+    def crud_create(self):
+        try:
+            nama = self.ui.ent_nama.get().strip()
+            harga_str = self.ui.ent_harga.get().strip()
+            warung = self.ui.ent_warung.get().strip()
+            lokasi = self.ui.ent_lokasi.get().strip()
+            rating_str = self.ui.ent_rating.get().strip()
+            kategori = self.ui.ent_kategori.get()
+
+            if not (nama and harga_str and warung and lokasi and rating_str):
+                return messagebox.showwarning("Peringatan", "Mohon isi semua data!")
+
+            harga = int(harga_str)
+            rating = float(rating_str)
+
+            if harga <= 0 or rating < 1.0 or rating > 5.0:
+                return messagebox.showwarning("Peringatan", "Batas input nominal / skala rating tidak valid!")
+
+            baru = WarungMakan(nama, harga, kategori, warung, lokasi, rating)
+            self.database_warung.append(baru)
+            
+            self.trigger_sinkronisasi()  
+            self.refresh_tabel_admin(self.database_warung)
+            self.tampilkan_di_list_user(self.database_warung)
+            self.hitung_statistik() 
+            messagebox.showinfo("Sukses", "Data Berhasil Ditambahkan!")
+        except ValueError:
+            messagebox.showerror("Error", "Input Harga/Rating harus angka murni!")
+
+    def crud_update(self):
+        if not self.objek_terpilih: return messagebox.showwarning("Peringatan", "Pilih data tabel dulu!")
+        try:
+            nama = self.ui.ent_nama.get().strip()
+            warung = self.ui.ent_warung.get().strip()
+            harga_str = self.ui.ent_harga.get().strip()
+            rating_str = self.ui.ent_rating.get().strip()
+            lokasi = self.ui.ent_lokasi.get().strip() 
+            kategori = self.ui.ent_kategori.get()
+
+            teks_fav_lama = f"{self.objek_terpilih.nama} ({self.objek_terpilih.nama_warung}) - Rp{self.objek_terpilih.harga}"
+
+            self.objek_terpilih.nama = nama
+            self.objek_terpilih.harga = int(harga_str)
+            self.objek_terpilih.nama_warung = warung
+            self.objek_terpilih.lokasi = lokasi
+            self.objek_terpilih.rating = float(rating_str)
+            self.objek_terpilih.kategori = kategori
+
+            if self.daftar_favorit.is_exist(teks_fav_lama):
+                self.daftar_favorit.remove_item(teks_fav_lama)
+                self.daftar_favorit.push(f"{nama} ({warung}) - Rp{harga_str}")
+
+            self.trigger_sinkronisasi()  
+            self.refresh_tabel_admin(self.database_warung)
+            self.tampilkan_di_list_user(self.database_warung)
+            self.hitung_statistik() 
+            messagebox.showinfo("Sukses", "Data Berhasil Diperbarui!")
+        except ValueError:
+            messagebox.showerror("Error", "Gagal konversi angka!")
